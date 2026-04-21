@@ -2,11 +2,11 @@ from api.APITest import APITest
 
 class UserAPITest(APITest):
     def test(self):
-        print("=============================[API User Testing]=====================================")
+        print("\n\n=================================[API User Testing]=========================================\n\n")
         self.get_user_count_api_test()
         self.get_user_info()
         self.testUserRegister()
-        print("=============================[END User Testing]=====================================")
+        print("\n\n=================================[END User Testing]=========================================\n\n")
 
 
     def get_user_count_api_test(self):
@@ -119,8 +119,6 @@ class UserAPITest(APITest):
 
         raise Exception
     
-
-
 
     def getUserById(self, user_id : str):
         response = self.request("GET", f"users/{user_id}").json()
