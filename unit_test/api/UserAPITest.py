@@ -42,6 +42,21 @@ class UserAPITest(APITest):
                 print("❌ [User Test] User Request harus forbidden ")
         raise Exception
     
+    def testUserLogin(self, payload = None):
+        if payload is None:
+            payload = {
+                "username" : "tester_1",
+                "password" : "tester"
+            }
+        response = self.request("POST", "auth/login", payload= payload).json()
+
+        if response["status"] == 200 :
+            print("✅ [User Test] Check user permission on login")
+            return
+        else:
+            print("❌ [User Test] Server should block user request on login ")
+        raise Exception
+    
     def testUserRegister(self):
         payload = {
             "username" : "tester_1",
@@ -64,7 +79,7 @@ class UserAPITest(APITest):
             response_admin = self.admin_request("POST", "auth/register", payload= payload2).json()
             if response_admin["status"] == 201 : 
                 print("✅ [Admin Test] Pembuatan akun dari admin berhasil")
-
+                self.testUserLogin(payload=payload2)
                 self.checkUpdateUser(response_admin["data"]["id"])
                 return
             else:
